@@ -27,4 +27,4 @@ jobs:
       with: 
         channel: 'stable'
     - name: "Run Flutter driver tests"
-      run: "flutter drive --target=lib/main.dart"  
+      run: "flutter drive --target=test_driver/app.dart"  
