@@ -1,0 +1,30 @@
+name: Flutter drive
+
+on: [pull_request]
+
+jobs:
+  drive:
+    strategy:
+      matrix:
+        device: ["iPhone 11 Pro Max (13.1)"]
+      fail-fast: false
+    runs-on: macos
+    steps:
+    - name: "List all simulators"
+      run: "xcrun instruments -s"
+    - name: "Start Simulator"
+      run: |
+        UDID = $(
+          xcrun instruments -s |
+          awk \
+            -F ' *[][]' \
+            -v 'device=${{ matrix.device }}' \
+            '$1 == device {print $2}'
+        )
+        xcrun simctl boot "${UDID:?No Simulator with this name found}"
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1
+      with: 
+        channel: 'stable'
+    - name: "Run Flutter driver tests"
+      run: "flutter drive --targe=test_driver/app.dart"  
