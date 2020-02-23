@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' as m;
 import 'package:forms/widgets/text_form_field.dart';
+import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:forms/utils/validator.dart';
 import 'package:forms/theme.dart';
 
@@ -49,6 +50,25 @@ class _FormState extends m.State<Form> {
           ),
           TextFormField(labelText: 'Setor de atividade'),
           TextFormField(labelText: 'Número aproximado de empregados'),
+          MultiSelectFormField(
+            titleText: 'Qual é o seu entendimento acerca de inovação',
+            validator: (value) {
+              if (value == null || value.length == 0) {
+                return 'Uma ou mais opções devem ser selecionadas';
+              }
+            },
+            dataSource: [
+              {
+                'display': 'Teste',
+                'value': 'teste',
+              },
+            ],
+            textField: 'display',
+            valueField: 'value',
+            okButtonLabel: 'Ok',
+            cancelButtonLabel: 'Cancel',
+            hintText: 'Por favor, selecione uma ou mais opções',
+          ),
         ],
       ),
     );
