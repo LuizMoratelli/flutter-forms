@@ -4,7 +4,10 @@ ThemeData buildDarkTheme() {
   final ThemeData base = ThemeData.dark();
   final Color primaryColor = ThemeColors.green;
   final Color backgroundColor = ThemeColors.lightGray;
+  final Color accentColor = ThemeColors.green;
+
   return base.copyWith(
+    accentColor: accentColor,
     backgroundColor: backgroundColor,
     primaryColor: primaryColor,
   );

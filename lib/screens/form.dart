@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' as m;
 import 'package:forms/widgets/text_form_field.dart';
 import 'package:forms/utils/validator.dart';
+import 'package:forms/theme.dart';
 
 class Form extends m.StatefulWidget {
   final formKey;
@@ -26,7 +27,26 @@ class _FormState extends m.State<Form> {
             labelText: 'Endereço de e-mail',
             validator: Validator.email,
           ),
-          TextFormField(labelText: 'Data de Fundação'),
+          m.GestureDetector(
+            onTap: () async => await m.showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(1900),
+              lastDate: DateTime.now(),
+              builder: (m.BuildContext context, m.Widget child) {
+                return m.Theme(
+                  data: m.ThemeData.dark().copyWith(
+                    primaryColor: ThemeColors.green,
+                    accentColor: ThemeColors.green,
+                  ),
+                  child: child,
+                );
+              },
+            ),
+            child: m.AbsorbPointer(
+              child: TextFormField(labelText: 'Data de Fundação'),
+            ),
+          ),
           TextFormField(labelText: 'Setor de atividade'),
           TextFormField(labelText: 'Número aproximado de empregados'),
         ],
