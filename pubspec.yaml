@@ -27,6 +27,7 @@ dependencies:
       url: git://github.com/LuizMoratelli/fl_chart.git
       ref: master
   graphql: ^3.0.0
+  email_validator: ^1.0.0
 
 
 dev_dependencies:
