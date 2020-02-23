@@ -26,6 +26,8 @@ class _PersistantTabState extends State<PersistantTab>
 }
 
 class Home extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -35,7 +37,12 @@ class Home extends StatelessWidget {
         body: TabBarView(
           children: [
             PersistantTab(
-              child: Form(),
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Form(
+                  formKey: _formKey,
+                ),
+              ),
             ),
             //Charts
           ],
@@ -69,11 +76,20 @@ class Home extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           child: Icon(
-            Icons.add,
+            Icons.send,
             color: Colors.white,
           ),
+          onPressed: () {
+            if (_formKey.currentState.validate()) {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Enviando dados...'),
+                ),
+              );
+            }
+          },
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       ),
     );
   }

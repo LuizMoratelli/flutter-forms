@@ -3,9 +3,9 @@ import 'package:forms/utils/validator.dart';
 import 'package:forms/theme.dart';
 
 class TextFormField extends m.StatelessWidget {
-  final String initialValue;
+  final String initialValue, hintText, labelText;
   final m.InputDecoration decoration;
-  final Validator validator;
+  final validator;
   final m.TextEditingController controller;
   final m.TextInputType keyboardType;
   final m.TextStyle style;
@@ -16,6 +16,8 @@ class TextFormField extends m.StatelessWidget {
     this.validator,
     this.keyboardType,
     this.style,
+    this.hintText,
+    this.labelText,
   }) : controller = m.TextEditingController(text: initialValue);
 
   @override
@@ -25,12 +27,19 @@ class TextFormField extends m.StatelessWidget {
       color: m.Colors.black,
     );
 
-    final m.TextStyle hintStyle = m.TextStyle(
-      color: ThemeColors.lightGray,
-      fontSize: 16,
+    final m.TextStyle textStyle = m.TextStyle(
+      color: m.Colors.black,
+      fontSize: 12,
     );
 
     final m.UnderlineInputBorder borderStyle = m.UnderlineInputBorder(
+      borderSide: m.BorderSide(
+        color: ThemeColors.darkGray,
+        width: 1.0,
+      ),
+    );
+
+    final m.UnderlineInputBorder focusedStyle = m.UnderlineInputBorder(
       borderSide: m.BorderSide(
         color: m.Theme.of(context).primaryColor,
         width: 2.0,
@@ -40,11 +49,12 @@ class TextFormField extends m.StatelessWidget {
     return m.TextFormField(
       decoration: decoration ??
           m.InputDecoration(
-            hintStyle: hintStyle,
+            hintStyle: textStyle,
+            labelStyle: textStyle,
             enabledBorder: borderStyle,
-            focusedBorder: borderStyle,
-            hintText: '',
-            labelText: '',
+            focusedBorder: focusedStyle,
+            hintText: hintText ?? '',
+            labelText: labelText ?? '',
           ),
       validator: validator ?? (String value) => null,
       controller: controller ?? null,
